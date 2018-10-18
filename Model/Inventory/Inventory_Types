@@ -1,0 +1,45 @@
+
+package Model.Inventory;
+
+
+public class Insert_Inventory_Type {
+    private String item_code;
+    private String item_description;
+    public Insert_Inventory_Type(String temp1, String temp2){
+       item_code = temp1;
+       item_description = temp2;
+         
+    }
+  
+    
+
+    /**
+     * @return the item_code
+     */
+    public String getItem_code() {
+        return item_code;
+    }
+
+    /**
+     * @param item_code the item_code to set
+     */
+    public void setItem_code(String item_code) {
+        this.item_code = item_code;
+    }
+
+    /**
+     * @return the item_description
+     */
+    public String getItem_description() {
+        return item_description;
+    }
+
+    /**
+     * @param item_description the item_description to set
+     */
+    public void setItem_description(String item_description) {
+        this.item_description = item_description;
+    }
+    
+    
+}
