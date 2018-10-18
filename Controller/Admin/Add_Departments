@@ -1,0 +1,55 @@
+
+package Controller.Admin;
+
+import Controller.DbConnect;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author Ramith
+ */
+public class Add_departments {
+ PreparedStatement pstatement = null;
+ Connection conn = null;
+ String dep_name;
+ String dep_desc;
+public Add_departments(String temp1, String temp2){
+     
+  
+dep_name = temp1;  
+dep_desc = temp2;
+ 
+    
+    
+    try {
+          conn = DbConnect.connect();
+          
+      } catch (SQLException ex) {
+          Logger.getLogger(Add_departments.class.getName()).log(Level.SEVERE, null, ex);
+      }
+}
+
+public void execute_add_department(){
+
+      try {
+          String sql = "INSERT INTO department_table(dep_name,dep_description) VALUES (?,?);";
+          pstatement = conn.prepareStatement(sql);
+          pstatement.setString(1, dep_name);
+          pstatement.setString(2, dep_desc);
+          
+          int rowCount = pstatement.executeUpdate();
+          pstatement.close();
+          conn.close();
+      } catch (SQLException ex) {
+          Logger.getLogger(Add_departments.class.getName()).log(Level.SEVERE, null, ex);
+      }
+
+}
+}
+
+
+
