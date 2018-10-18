@@ -1,0 +1,48 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Controller.Inventory.Calculation;
+
+import Controller.DbConnect;
+
+/**
+ *
+ * @author Ramith
+ */
+public class totalcost_calculation {
+        float selling_price;
+        float qty;
+        float discount;
+    
+        public totalcost_calculation(float temp1, float temp2, float temp3){
+        selling_price = temp1;
+        qty = temp2;
+        discount = temp3;
+        }
+       
+ public float discount_calculate(){
+     
+            float discount_value = (selling_price*qty)*(discount/100);
+            return discount_value;
+        }
+
+    
+    public float calculate(){
+        
+        
+        float total = (selling_price*qty)-discount_calculate();
+        return total;
+         
+    } 
+        
+}
+
+        
+    
+    
+    
+
+    
+
