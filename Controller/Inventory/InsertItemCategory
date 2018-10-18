@@ -1,0 +1,45 @@
+
+package Controller.Inventory;
+
+import Controller.DbConnect;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+public class Insert_Category {
+    Connection conn = null;
+    PreparedStatement pstatement =null;
+    
+    private String name;
+    private String desc;
+    
+    public Insert_Category(String temp1, String temp2) throws SQLException{
+        conn = DbConnect.connect();
+        name = temp1;
+        desc = temp2;
+        
+    }
+    public void execute_Insert_Measuring_Unit_Db(){
+        
+        try {
+            
+ 
+            String sql = "insert into item_category(category_name,category_description) values (?,?)";
+            pstatement = conn.prepareStatement(sql);
+            pstatement.setString(1, name);
+            pstatement.setString(2, desc);
+            
+            int rowCount = pstatement.executeUpdate();
+            System.out.println(rowCount);
+            System.out.println("Success");
+            
+            pstatement.close();
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Insert_Measuring_Unit_Db.class.getName()).log(Level.SEVERE, null, ex);
+        
+        }
+    }}
