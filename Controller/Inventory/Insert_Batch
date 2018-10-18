@@ -1,0 +1,84 @@
+
+package Controller.Inventory;
+import Controller.DbConnect;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+public class Inventory_Batch_Db {
+   
+    Connection conn = null;
+    PreparedStatement pstatement =null; 
+    
+    private String batch_no;
+    private String manu_date;
+    private String ex_date;
+    private float qty;
+    private float x;
+    private float sell_price;
+    private float tot_cost;
+    private float dis;
+    private String n;
+    private String add_da;
+    private String ref_code;
+    
+    
+    public Inventory_Batch_Db(String temp1, String temp2,String temp3,float temp4,float temp5, float temp6, float temp7, float temp8, String temp9,String temp10, String temp11) throws SQLException{
+      conn = DbConnect.connect();  
+      batch_no = temp1;
+      manu_date = temp2;
+      ex_date = temp3;
+      qty = temp4;
+      x = temp5;
+      sell_price=temp6;
+      tot_cost=temp7;
+      dis=temp8;
+      n=temp9;
+      add_da=temp10;
+      ref_code=temp11;
+     
+    
+    }
+    
+        
+      public void execute_inventory_batch(){  
+        //String q = "insert into inventory_batch(batch_code,manufacture_date,expire_date,quantity,cost,selling_price,total_cost,add_discount,notes,add_date,reference_code)values('sdsds','2018-10-31','2018-10-31',25,45,88,85,1,'sdsds',2018-11-28,'qqqqq')";
+            
+        //String sql = "insert into inventory_types(item_code,item_description) values (?,?)";
+        try {
+            String q = "insert into inventory_batch(batch_code,manufacture_date,expire_date,quantity,cost,selling_price,total_cost,add_discount,notes,add_date,reference_code) values (?,?,?,?,?,?,?,?,?,?,?);";
+            pstatement = conn.prepareStatement(q);
+           
+            pstatement.setString(1,batch_no);
+            pstatement.setString(2,manu_date);
+            pstatement.setString(3,ex_date);
+            pstatement.setFloat(4,qty);
+            pstatement.setFloat(5,x);
+            pstatement.setFloat(6,sell_price);
+            pstatement.setFloat(7,tot_cost);
+            pstatement.setFloat(8,dis);
+            pstatement.setString(9,n);
+            pstatement.setString(10,add_da);
+            pstatement.setString(11,ref_code);
+            
+            int rowCount = pstatement.executeUpdate();
+            System.out.println(rowCount);
+            System.out.println("Success");
+            
+         
+         
+             
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Inventory_Batch_Db.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          
+    }
+            
+    
+    
+    
+}
