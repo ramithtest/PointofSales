@@ -1,0 +1,63 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Controller.Inventory;
+
+import Controller.DbConnect;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author Ramith
+ */
+public class Insert_Stock_Location_Db {
+    
+     Connection conn = null;
+    PreparedStatement pstatement =null;
+    
+    private String code;
+    private String name;
+    private String desc;
+    
+    public Insert_Stock_Location_Db(String temp1, String temp2, String temp3) throws SQLException{
+       
+        conn = DbConnect.connect();
+        code = temp1;
+        name = temp2;
+        desc = temp3;
+        
+        
+    }
+    
+    public void execute_insert_stock_location_db(){
+        
+         try {
+             String sql = "INSERT INTO stock_location(location_code,location_name,location_description)VALUES(?,?,?);";
+             
+             pstatement = conn.prepareStatement(sql);
+             pstatement.setString(1, code);
+             pstatement.setString(2, name);
+             pstatement.setString(3, desc);
+              int rowCount = pstatement.executeUpdate();
+            System.out.println(rowCount);
+            System.out.println("Success");
+             pstatement.close();
+            conn.close();
+         } catch (SQLException ex) {
+             Logger.getLogger(Insert_Stock_Location_Db.class.getName()).log(Level.SEVERE, null, ex);
+         }
+        
+    }
+    
+    
+    
+    
+    
+    
+}
