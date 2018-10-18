@@ -1,0 +1,56 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Model.Admin;
+
+/**
+ *
+ * @author Ramith
+ */
+public class Department_add {
+    private String dep_name;
+    private String dep_desc;
+    public Department_add(String temp1, String temp2){
+        
+        dep_name = temp1;
+        dep_desc= temp2;
+        
+        
+        
+        
+    }
+
+    /**
+     * @return the dep_name
+     */
+    public String getDep_name() {
+        return dep_name;
+    }
+
+    /**
+     * @param dep_name the dep_name to set
+     */
+    public void setDep_name(String dep_name) {
+        this.dep_name = dep_name;
+    }
+
+    /**
+     * @return the dep_desc
+     */
+    public String getDep_desc() {
+        return dep_desc;
+    }
+
+    /**
+     * @param dep_desc the dep_desc to set
+     */
+    public void setDep_desc(String dep_desc) {
+        this.dep_desc = dep_desc;
+    }
+
+    
+    
+    
+}
