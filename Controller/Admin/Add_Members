@@ -1,0 +1,78 @@
+
+package Controller.Admin;
+
+import Controller.DbConnect;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author Ramith
+ */
+public class add_member {
+    Connection conn = null;
+    PreparedStatement pstatement = null;
+    
+       String f_name_var = null;
+        String last_name_var = null;
+        String nic_var;
+        String add1_var;
+        String add2_var;
+        String add3_var;
+        int tel_var;
+        String date_start;
+        String department_combo;
+    
+    public add_member(String temp1,String temp2,String temp3,String temp4,String temp5,String temp6,int temp7,String temp8,String temp9) throws SQLException{
+        
+        conn = DbConnect.connect();
+     
+         f_name_var = temp1;
+         last_name_var = temp2;
+         nic_var = temp3;
+         add1_var = temp4;
+         add2_var = temp5;
+         add3_var = temp6;
+         tel_var = temp7;
+         date_start = temp8;
+         department_combo = temp9;
+        
+    }
+                        
+    public void execute_add_member(){
+        try {
+            String sql = "INSERT INTO member_details(f_name,l_name,nic_no,add1,add2,add3,tel_no,date_started,department_no) VALUES (?,?,?,?,?,?,?,?,?)";
+            pstatement = conn.prepareStatement(sql);
+            pstatement.setString(1, f_name_var);
+            pstatement.setString(2, last_name_var);
+            pstatement.setString(3, nic_var);
+            pstatement.setString(4, add1_var);
+            pstatement.setString(5, add2_var);
+            pstatement.setString(6, add3_var);
+            pstatement.setInt(7, tel_var);
+            pstatement.setString(8, date_start);
+            pstatement.setString(9, department_combo);
+            
+            int rowCount = pstatement.executeUpdate();
+            pstatement.close();
+            conn.close();
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(add_member.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    
+    
+    
+     
+    
+    
+    
+    
+}
