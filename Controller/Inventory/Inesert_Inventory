@@ -1,0 +1,140 @@
+
+package Controller.Inventory;
+
+import Controller.DbConnect;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+public class Inventory_Insert_Db {
+    
+    Connection conn = null;
+    PreparedStatement pstatement =null;
+    private String item_code=null;
+    private String item_name=null;
+    private String item_desc=null;
+    private String item_cateogry=null;
+    private String item_type=null;
+    private String item_measuring_unit=null;
+    private String item_manufacturer=null;
+    private String item_quantity=null;
+    private float item_cost_price = 0;
+    private float item_tag_price = 0;
+    private float item_stock_reorder_limit = 0;
+    private String item_account_code=null;
+    public Inventory_Insert_Db(String temp1, String temp2, String temp3, String temp4,  String temp5, String temp6, String temp7, String temp8, float temp9, float temp10, float temp11, String temp12) throws SQLException{
+     
+        conn = DbConnect.connect();
+        
+        
+        //'"+item_code+"','"+item_name+"','"+item_desc+"','"+item_cateogry+"','"+item_type+"',
+       // '"+item_measuring_unit+"','"+item_manufacture+"','"+item_quantity+"','"+item_cost_price+"','"+item_tag_price+"','"+item_stock_reorder_limit+"','"+item_account_code+"'
+            item_code = temp1;
+            item_name=temp2;
+            item_desc=temp3;
+            item_cateogry=temp4;
+            item_type=temp5;
+            item_measuring_unit = temp6;
+            item_manufacturer=temp7;
+            item_quantity=temp8;
+            item_cost_price=temp9;
+            item_tag_price=temp10;
+            item_stock_reorder_limit=temp11;
+            item_account_code=temp12;
+        
+        
+        
+        
+        
+        
+       /* this.item_code = item_code;
+        this.item_name = item_name;
+        this.item_desc = item_desc;
+        this.item_cateogry = item_cateogry;
+        this.item_type = item_type;
+        this.item_measuring_unit = item_measuring_unit;
+        this.item_manufacture  = item_manufacture;
+        this.item_quantity = item_quantity;
+        this.item_cost_price = item_cost_price;
+        this.item_tag_price = item_tag_price;
+        this.item_stock_reorder_limit = item_stock_reorder_limit;
+        this.item_account_code = item_account_code;
+        */
+        
+        
+        }
+   
+    
+    /*
+        
+     String name="ramith";
+     float total = (float) 250.0;
+      
+     Connection conn = null;
+    PreparedStatement pstatement =null;
+     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+     Date date = new Date();
+	     
+        try{
+     conn = dbconnect.connect();
+     String q = "INSERT INTO hi(test_string,test_float,test_date)VALUES('"+name+"','"+total+"','"+dateFormat.format(date).toString()+"')";
+     pstatement = conn.prepareStatement(q);
+     pstatement.execute();
+      
+        }catch(Exception e){
+            System.out.println("Fail");
+        }
+    
+    
+    */
+    
+    
+    
+    
+    
+    
+    
+    public void execute_insert_data_query(){
+        
+        try {
+            
+            
+            String insert_sql = "INSERT INTO inventory(item_code, item_name, item_description, item_cateogry, item_type, item_measuring_unit, item_manufacturer, item_quantity, item_cost_price, item_tag_price, stock_reorder_limit, account_code ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+           
+            //'"+item_code+"','"+item_name+"','"+item_desc+"','"+item_cateogry+"','"+item_type+"','"+item_measuring_unit+"','"+item_manufacturer+"'"+item_quantity+"','"+(float)item_cost_price+"','"+(float)item_tag_price+"','"+(float)item_stock_reorder_limit+"','"+item_account_code+"'
+            //'"+item_code+"','"+item_name+"','"+item_desc+"','"+item_cateogry+"','"+item_type+"','"+item_measuring_unit+"','"+item_manufacture+"','"+item_quantity+"','"+item_cost_price+"','"+item_tag_price+"','"+item_stock_reorder_limit+"','"+item_account_code+"'
+            
+            
+            pstatement = conn.prepareStatement(insert_sql);
+            pstatement.setString(1, item_code);
+            pstatement.setString(2, item_name);
+            pstatement.setString(3, item_desc);
+            pstatement.setString(4, item_cateogry);
+            pstatement.setString(5, item_type);
+            pstatement.setString(6, item_measuring_unit);
+            pstatement.setString(7, item_manufacturer);
+            pstatement.setString(8, item_quantity);
+            pstatement.setFloat(9, item_cost_price);
+            pstatement.setFloat(10, item_tag_price);
+            pstatement.setFloat(11, item_stock_reorder_limit);
+            pstatement.setString(12, item_account_code);
+            //pstatement.execute();
+            int rowCount = pstatement.executeUpdate();
+            System.out.println(rowCount);
+            System.out.println("Success");
+            
+            pstatement.close();
+            conn.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Inventory_Insert_Db.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Fail");
+        }
+       
+        
+}
+    
+}
