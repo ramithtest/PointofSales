@@ -1,0 +1,533 @@
+
+package View.Inventory;
+
+import Controller.DbConnect;
+import Controller.Inventory.DemoModelItem;
+import Controller.Inventory.Inventory_Insert_Db;
+import View.Admin.Main_Menu;
+
+import Model.Inventory.Insert_Inventory;
+import static java.awt.Frame.MAXIMIZED_BOTH;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+import net.proteanit.sql.DbUtils;
+
+
+public class Inventory extends javax.swing.JInternalFrame {
+    Connection conn=null;
+    PreparedStatement pstatement=null ;
+    ResultSet rset = null;
+
+    public Inventory() throws SQLException {
+        
+
+        conn = DbConnect.connect();
+        initComponents();
+        load_tabel();
+        fill_combo();
+        fill_type();
+        fill_measuring_unit();
+         
+    }
+    
+public void load_tabel() throws SQLException{
+    String sql = "SELECT * FROM inventory"; //or can use myname,myfood 
+          pstatement = conn.prepareStatement(sql);
+          rset = pstatement.executeQuery();
+          jTable1.setModel(DbUtils.resultSetToTableModel(rset));
+}
+
+private void fill_combo(){
+
+try{
+
+String q = "SELECT * FROM item_category";
+pstatement = conn.prepareStatement(q);
+rset = pstatement.executeQuery();
+
+
+while(rset.next()){
+
+String name = rset.getString("category_name");
+//String desc = rset.getString("category_description");
+category_var.addItem(name);
+//category_var.addItem(desc);
+
+}
+
+}catch(Exception e){
+JOptionPane.showMessageDialog(null, e); 
+}
+}
+
+private void fill_type(){
+
+try{
+
+String q = "SELECT * FROM inventory_types";
+pstatement = conn.prepareStatement(q);
+rset = pstatement.executeQuery();
+
+
+while(rset.next()){
+
+String name = rset.getString("item_code");
+//String desc = rset.getString("category_description");
+type_var.addItem(name);
+//category_var.addItem(desc);
+
+}
+}catch(Exception e){
+JOptionPane.showMessageDialog(null, e); 
+}
+
+}
+private void fill_measuring_unit(){
+
+try{
+
+String q = "SELECT * FROM measuring_unit";
+pstatement = conn.prepareStatement(q);
+rset = pstatement.executeQuery();
+Connection conn = null;
+conn = DbConnect.connect();
+
+
+while(rset.next()){
+
+String name = rset.getString("code_id");
+//String desc = rset.getString("category_description");
+measuring_unit_var.addItem(name);
+//category_var.addItem(desc);
+
+
+
+}
+}catch(Exception e){
+JOptionPane.showMessageDialog(null, e); 
+}
+
+}
+
+
+
+
+
+
+    
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
+
+        jInternalFrame1 = new javax.swing.JInternalFrame();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        item_code_var = new javax.swing.JTextField();
+        item_name_var = new javax.swing.JTextField();
+        item_dec_var = new javax.swing.JTextField();
+        category_var = new javax.swing.JComboBox<>();
+        type_var = new javax.swing.JComboBox<>();
+        measuring_unit_var = new javax.swing.JComboBox<>();
+        item_other_name_var = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        manufacture_var = new javax.swing.JTextField();
+        quantity_var = new javax.swing.JTextField();
+        cost_price_var = new javax.swing.JTextField();
+        tag_price_var = new javax.swing.JTextField();
+        set_reorder_limit_var = new javax.swing.JTextField();
+        account_code_var = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        add_btn = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximizable(true);
+
+        jInternalFrame1.setVisible(true);
+
+        jLabel1.setText("Item Code");
+
+        jLabel2.setText("Item Name");
+
+        jLabel3.setText("Description");
+
+        jLabel4.setText("Cateogry");
+
+        jLabel5.setText("Type");
+
+        jLabel6.setText("Measuring Unit");
+
+        jLabel7.setText("Manufacturer");
+
+        jLabel8.setText("Quantity");
+
+        jLabel9.setText("Cost Price");
+
+        jLabel10.setText("Tag Price");
+
+        jLabel11.setText("Stock Reorder Limit");
+
+        jLabel12.setText("Account Code");
+
+        item_code_var.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_code_varActionPerformed(evt);
+            }
+        });
+
+        item_name_var.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_name_varActionPerformed(evt);
+            }
+        });
+
+        category_var.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                category_varActionPerformed(evt);
+            }
+        });
+
+        type_var.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                type_varActionPerformed(evt);
+            }
+        });
+
+        measuring_unit_var.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                measuring_unit_varActionPerformed(evt);
+            }
+        });
+
+        item_other_name_var.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_other_name_varActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setText("(English)");
+
+        jLabel14.setText("(Another Language)");
+
+        tag_price_var.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tag_price_varActionPerformed(evt);
+            }
+        });
+
+        account_code_var.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Item Code", "Item Name", "Description", "Cateogry", "Type", "Measuring Unit", "Manufacture", "Quantity", "Cost Price", "Tag Price", "Stock Reorder Limit", "Account Code"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        add_btn.setText("Add");
+        add_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                add_btnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
+        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
+        jInternalFrame1Layout.setHorizontalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                            .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel5))
+                            .addGap(49, 49, 49)
+                            .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(item_dec_var, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(type_var, javax.swing.GroupLayout.Alignment.LEADING, 0, 62, Short.MAX_VALUE)
+                                    .addComponent(category_var, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                            .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7)
+                                .addComponent(jLabel8)
+                                .addComponent(jLabel9)
+                                .addComponent(jLabel10))
+                            .addGap(31, 31, 31)
+                            .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(manufacture_var, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                                    .addComponent(quantity_var)
+                                    .addComponent(cost_price_var))
+                                .addComponent(tag_price_var, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(measuring_unit_var, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                            .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel11)
+                                .addComponent(jLabel12))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(add_btn)
+                                .addComponent(account_code_var, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(set_reorder_limit_var))))
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(50, 50, 50)
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(item_name_var, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(item_code_var, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(item_other_name_var, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel14))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE))
+        );
+        jInternalFrame1Layout.setVerticalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(item_code_var, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(item_name_var, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13))
+                        .addGap(8, 8, 8)
+                        .addComponent(item_other_name_var, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(item_dec_var))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(category_var, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(type_var, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(measuring_unit_var, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(manufacture_var, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(quantity_var, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel9)
+                    .addComponent(cost_price_var, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(tag_price_var, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(set_reorder_limit_var, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(account_code_var, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(add_btn)
+                .addGap(12, 12, 12))
+            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jInternalFrame1)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jInternalFrame1)
+        );
+
+        pack();
+    }// </editor-fold>                        
+
+    private void tag_price_varActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        // TODO add your handling code here:
+    }                                             
+
+    private void item_name_varActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        // TODO add your handling code here:
+    }                                             
+
+    private void item_other_name_varActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+        // TODO add your handling code here:
+    }                                                   
+
+    private void measuring_unit_varActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+        // TODO add your handling code here:
+    }                                                  
+
+    private void add_btnActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        
+        
+        String temp1 = item_name_var.getText();
+        String temp2 = item_code_var.getText();
+        String temp3 = item_dec_var.getText();
+        String temp4 = category_var.getSelectedItem().toString();
+        String temp5 = type_var.getSelectedItem().toString();
+        String temp6 = measuring_unit_var.getSelectedItem().toString();
+        String temp7 = manufacture_var.getText();
+        String temp8 = quantity_var.getText();
+        float temp9 = Float.parseFloat(cost_price_var.getText());
+        float temp10 = Float.parseFloat(tag_price_var.getText());
+        float temp11 = Float.parseFloat(set_reorder_limit_var.getText());
+        String temp12 = account_code_var.getSelectedItem().toString();
+        
+        
+        
+        Insert_Inventory Insert_Inventory_obj = new Insert_Inventory(temp1,temp2,temp3,temp4,temp5,temp6,temp7,temp8,temp9,temp10,temp11,temp12);
+        
+        
+       try{      
+            Inventory_Insert_Db Inventory_Insert_Db_obj = new Inventory_Insert_Db(Insert_Inventory_obj.getItem_code(),Insert_Inventory_obj.getItem_name(),Insert_Inventory_obj.getItem_desc(),Insert_Inventory_obj.getItem_cateogry(),Insert_Inventory_obj.getItem_type(),Insert_Inventory_obj.getItem_measuring_unit(),Insert_Inventory_obj.getItem_manufacture(),Insert_Inventory_obj.getItem_quantity(),Insert_Inventory_obj.getItem_cost_price(),Insert_Inventory_obj.getItem_tag_price(),Insert_Inventory_obj.getItem_stock_reorder_limit(),Insert_Inventory_obj.getItem_account_code());
+            Inventory_Insert_Db_obj.execute_insert_data_query();
+           
+            load_tabel(); //Dispaly the data right after the add button is clicked
+          
+         
+            
+            
+        }catch(Exception e){
+            
+        }
+        
+        
+            
+        
+        
+        
+        
+    }                                       
+
+    private void category_varActionPerformed(java.awt.event.ActionEvent evt) {                                             
+
+       
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }                                            
+
+    private void type_varActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        // TODO add your handling code here:
+    }                                        
+
+    private void item_code_varActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        // TODO add your handling code here:
+    }                                             
+
+                            
+    
+    
+    
+    
+    public static void main(String args[]) {
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    new Inventory().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Inventory.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+    }
+
+    // Variables declaration - do not modify                     
+    private javax.swing.JComboBox<String> account_code_var;
+    private javax.swing.JButton add_btn;
+    private javax.swing.JComboBox<String> category_var;
+    private javax.swing.JTextField cost_price_var;
+    private javax.swing.JTextField item_code_var;
+    private javax.swing.JTextField item_dec_var;
+    private javax.swing.JTextField item_name_var;
+    private javax.swing.JTextField item_other_name_var;
+    private javax.swing.JInternalFrame jInternalFrame1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField manufacture_var;
+    private javax.swing.JComboBox<String> measuring_unit_var;
+    private javax.swing.JTextField quantity_var;
+    private javax.swing.JTextField set_reorder_limit_var;
+    private javax.swing.JTextField tag_price_var;
+    private javax.swing.JComboBox<String> type_var;
+    // End of variables declaration                   
+}
