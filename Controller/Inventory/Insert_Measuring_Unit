@@ -1,0 +1,47 @@
+
+package Controller.Inventory;
+
+import Controller.DbConnect;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+
+public class Insert_Measuring_Unit_Db {
+  
+    Connection conn = null;
+    PreparedStatement pstatement =null;
+    
+    private String code;
+    private String desc;
+    
+    public Insert_Measuring_Unit_Db(String temp1, String temp2) throws SQLException{
+        conn = DbConnect.connect();
+        code = temp1;
+        desc = temp2;
+        
+    }
+    public void execute_Insert_Measuring_Unit_Db(){
+        
+        try {
+            
+            String sql = "insert into measuring_unit(code_id,unit_description) values (?,?)";
+            pstatement = conn.prepareStatement(sql);
+            pstatement.setString(1, code);
+            pstatement.setString(2, desc);
+            
+            int rowCount = pstatement.executeUpdate();
+            System.out.println(rowCount);
+            System.out.println("Success");
+            
+            pstatement.close();
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Insert_Measuring_Unit_Db.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    
+}
